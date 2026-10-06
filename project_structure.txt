@@ -1,0 +1,1012 @@
+.
+├── alembic.ini
+├── backend
+│   ├── alembic
+│   │   ├── env.py
+│   │   ├── README
+│   │   ├── script.py.mako
+│   │   └── versions
+│   │       ├── 0f587db84483_create_dataset_management_tables.py
+│   │       ├── 27b046fa6dd6_create_users_and_user_sessions.py
+│   │       ├── 32c402404546_create_preprocessing_pipeline_tables.py
+│   │       ├── 57af09310f62_normalize_user_uniqueness_indexes.py
+│   │       ├── 5fe8dbb2a2fb_add_email_ground_truth_label.py
+│   │       ├── 9cb4d44dc280_create_email_ingestion.py
+│   │       ├── a194ca104bf8_add_email_detail_metadata_fields.py
+│   │       ├── a7b8c9d0e1f2_create_investigation_reporting.py
+│   │       ├── a8b9c0d1e2f3_align_experiment_user_id.py
+│   │       ├── b1c2d3e4f5a6_create_threat_intelligence.py
+│   │       ├── b205_add_dataset_sample_membership.py
+│   │       ├── b8c9d0e1f2a3_add_analyst_note_audit_history.py
+│   │       ├── c306f8a1e921_align_dataset_schema.py
+│   │       ├── d0b3edfe6e83_create_email_collection_jobs.py
+│   │       ├── d4e5f6a7b8c9_create_audit_security_admin.py
+│   │       ├── daba77b99f58_create_email_features.py
+│   │       ├── e4cbb269b3ff_add_ml_model_management_tables.py
+│   │       ├── e6f7a8b9c0d1_add_security_alert_deduplication.py
+│   │       ├── ea9f98c8a603_create_parsed_emails.py
+│   │       ├── f1a2b3c4d5e6_create_dataset_validation_tables.py
+│   │       ├── f2b3c4d5e6f7_create_detection_risk_behavior_tables.py
+│   │       ├── f4c5d6e7a8b9_add_detection_default_model_version.py
+│   │       └── f7a8b9c0d1e2_create_experiments.py
+│   ├── app
+│   │   ├── common
+│   │   │   ├── base.py
+│   │   │   ├── dependencies.py
+│   │   │   ├── __init__.py
+│   │   │   ├── pagination.py
+│   │   │   ├── responses.py
+│   │   │   └── schemas.py
+│   │   ├── core
+│   │   │   ├── config.py
+│   │   │   ├── database.py
+│   │   │   ├── exceptions.py
+│   │   │   ├── __init__.py
+│   │   │   ├── logging.py
+│   │   │   ├── permissions.py
+│   │   │   ├── rbac.py
+│   │   │   ├── registry.py
+│   │   │   └── security.py
+│   │   ├── __init__.py
+│   │   ├── main.py
+│   │   └── modules
+│   │       ├── analytics
+│   │       │   ├── aggregations.py
+│   │       │   ├── dependencies.py
+│   │       │   ├── errors.py
+│   │       │   ├── __init__.py
+│   │       │   ├── integrations
+│   │       │   │   ├── behavioral_adapter.py
+│   │       │   │   ├── detection_adapter.py
+│   │       │   │   ├── email_adapter.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── model_adapter.py
+│   │       │   │   └── risk_adapter.py
+│   │       │   ├── module.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   └── service.py
+│   │       ├── audit_security_admin
+│   │       │   ├── administration
+│   │       │   │   ├── health.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── job_manager.py
+│   │       │   │   ├── router.py
+│   │       │   │   └── settings_manager.py
+│   │       │   ├── audit
+│   │       │   │   ├── exporters
+│   │       │   │   │   ├── csv_exporter.py
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   └── json_exporter.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── repository.py
+│   │       │   │   ├── router.py
+│   │       │   │   └── service.py
+│   │       │   ├── dependencies.py
+│   │       │   ├── errors.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   └── security_monitoring
+│   │       │       ├── alert_manager.py
+│   │       │       ├── event_processor.py
+│   │       │       ├── __init__.py
+│   │       │       ├── router.py
+│   │       │       ├── service.py
+│   │       │       └── validators.py
+│   │       ├── auth
+│   │       │   ├── dependencies.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── permissions.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   └── service.py
+│   │       ├── dashboard
+│   │       │   ├── api
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── routes.py
+│   │       │   │   └── schemas.py
+│   │       │   ├── dependencies.py
+│   │       │   ├── errors.py
+│   │       │   ├── __init__.py
+│   │       │   ├── integrations
+│   │       │   │   ├── analytics_adapter.py
+│   │       │   │   └── __init__.py
+│   │       │   ├── module.py
+│   │       │   ├── repositories
+│   │       │   │   ├── dashboard_repository.py
+│   │       │   │   └── __init__.py
+│   │       │   ├── selectors
+│   │       │   │   ├── dashboard_filters.py
+│   │       │   │   ├── dashboard_queries.py
+│   │       │   │   └── __init__.py
+│   │       │   ├── services
+│   │       │   │   ├── dashboard_service.py
+│   │       │   │   └── __init__.py
+│   │       │   └── utils
+│   │       │       ├── aggregation.py
+│   │       │       ├── date_range.py
+│   │       │       └── __init__.py
+│   │       ├── datasets
+│   │       │   ├── exporters.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   ├── selectors.py
+│   │       │   ├── service.py
+│   │       │   ├── splitting.py
+│   │       │   ├── validation_repository.py
+│   │       │   ├── validation_service.py
+│   │       │   ├── validators.py
+│   │       │   └── versioning.py
+│   │       ├── detection
+│   │       │   ├── behavioral
+│   │       │   │   ├── engine
+│   │       │   │   │   ├── analysis.py
+│   │       │   │   │   ├── anomaly.py
+│   │       │   │   │   └── __init__.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── repository.py
+│   │       │   │   ├── schemas.py
+│   │       │   │   └── service.py
+│   │       │   ├── dependencies.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── repository.py
+│   │       │   ├── risk
+│   │       │   │   ├── engine
+│   │       │   │   │   ├── factors.py
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   └── scoring.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── repository.py
+│   │       │   │   ├── schemas.py
+│   │       │   │   └── service.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   └── service.py
+│   │       ├── emails
+│   │       │   ├── collection_models.py
+│   │       │   ├── collection_repository.py
+│   │       │   ├── collector.py
+│   │       │   ├── imap_collector.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   └── service.py
+│   │       ├── experiments
+│   │       │   ├── dependencies.py
+│   │       │   ├── errors.py
+│   │       │   ├── __init__.py
+│   │       │   ├── integrations
+│   │       │   │   ├── dataset_adapter.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── model_adapter.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── runner.py
+│   │       │   ├── schemas.py
+│   │       │   ├── service.py
+│   │       │   └── validators.py
+│   │       ├── features
+│   │       │   ├── content.py
+│   │       │   ├── definitions.py
+│   │       │   ├── extractor.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   ├── sender.py
+│   │       │   ├── service.py
+│   │       │   ├── similarity.py
+│   │       │   └── temporal.py
+│   │       ├── investigation_reporting
+│   │       │   ├── dependencies.py
+│   │       │   ├── errors.py
+│   │       │   ├── evidence
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── repository.py
+│   │       │   │   ├── router.py
+│   │       │   │   ├── schemas.py
+│   │       │   │   ├── service.py
+│   │       │   │   └── validators.py
+│   │       │   ├── explainability
+│   │       │   │   ├── explainers
+│   │       │   │   │   ├── base.py
+│   │       │   │   │   ├── feature_contribution.py
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   ├── rule_explainer.py
+│   │       │   │   │   └── shap_explainer.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── repository.py
+│   │       │   │   ├── router.py
+│   │       │   │   ├── schemas.py
+│   │       │   │   └── service.py
+│   │       │   ├── http.py
+│   │       │   ├── __init__.py
+│   │       │   ├── integrations
+│   │       │   │   ├── behavioral_adapter.py
+│   │       │   │   ├── detection_adapter.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── risk_adapter.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── reporting
+│   │       │   │   ├── generators
+│   │       │   │   │   ├── base.py
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   ├── json_generator.py
+│   │       │   │   │   └── pdf_generator.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── repository.py
+│   │       │   │   ├── router.py
+│   │       │   │   ├── schemas.py
+│   │       │   │   └── service.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   └── service.py
+│   │       ├── ml_models
+│   │       │   ├── config
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── validator.py
+│   │       │   ├── dependencies.py
+│   │       │   ├── engine
+│   │       │   │   ├── algorithms
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   ├── logistic_regression.py
+│   │       │   │   │   ├── random_forest.py
+│   │       │   │   │   └── weighted_svm.py
+│   │       │   │   ├── base.py
+│   │       │   │   ├── evaluator.py
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── metrics.py
+│   │       │   │   └── trainer.py
+│   │       │   ├── evaluation
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── report.py
+│   │       │   ├── executor.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── registry
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── manager.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── runtime.py
+│   │       │   ├── schemas.py
+│   │       │   ├── service.py
+│   │       │   └── storage
+│   │       │       ├── artifact_store.py
+│   │       │       └── __init__.py
+│   │       ├── parsing
+│   │       │   ├── headers.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── normalizer.py
+│   │       │   ├── parser.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   ├── service.py
+│   │       │   └── validator.py
+│   │       ├── preprocessing
+│   │       │   ├── config
+│   │       │   │   └── validator.py
+│   │       │   ├── dependencies.py
+│   │       │   ├── engine
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── missing_values.py
+│   │       │   │   ├── pipeline.py
+│   │       │   │   ├── scaler.py
+│   │       │   │   └── schema_validator.py
+│   │       │   ├── executor.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   ├── service.py
+│   │       │   └── storage
+│   │       │       ├── artifact_store.py
+│   │       │       └── __init__.py
+│   │       ├── settings
+│   │       │   ├── api
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── routes.py
+│   │       │   │   └── schemas.py
+│   │       │   ├── dependencies.py
+│   │       │   ├── errors.py
+│   │       │   ├── __init__.py
+│   │       │   ├── models
+│   │       │   │   └── __init__.py
+│   │       │   ├── module.py
+│   │       │   ├── repositories
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── settings_repository.py
+│   │       │   ├── services
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── settings_service.py
+│   │       │   └── utils
+│   │       │       ├── __init__.py
+│   │       │       └── settings_validators.py
+│   │       ├── threat_intelligence
+│   │       │   ├── dependencies.py
+│   │       │   ├── __init__.py
+│   │       │   ├── integrations
+│   │       │   │   ├── detection_adapter.py
+│   │       │   │   ├── email_adapter.py
+│   │       │   │   └── __init__.py
+│   │       │   ├── models.py
+│   │       │   ├── module.py
+│   │       │   ├── repository.py
+│   │       │   ├── routes.py
+│   │       │   ├── schemas.py
+│   │       │   ├── service.py
+│   │       │   └── validators.py
+│   │       └── users
+│   │           ├── __init__.py
+│   │           ├── models.py
+│   │           ├── module.py
+│   │           ├── repository.py
+│   │           ├── routes.py
+│   │           ├── schemas.py
+│   │           └── service.py
+│   ├── *.db
+│   ├── email_bomb_detection.db
+│   └── tests
+│       ├── conftest.py
+│       ├── __init__.py
+│       ├── integration
+│       │   ├── __init__.py
+│       │   ├── test_authentication.py
+│       │   ├── test_parsing_to_features.py
+│       │   ├── test_rbac.py
+│       │   └── test_user_management.py
+│       └── modules
+│           ├── analytics
+│           │   └── test_aggregations.py
+│           ├── audit_security_admin
+│           │   ├── __init__.py
+│           │   └── test_services.py
+│           ├── auth
+│           │   ├── __init__.py
+│           │   ├── test_login.py
+│           │   ├── test_logout.py
+│           │   ├── test_permissions.py
+│           │   ├── test_security.py
+│           │   └── test_session.py
+│           ├── dashboard
+│           │   └── test_dashboard.py
+│           ├── datasets
+│           │   ├── __init__.py
+│           │   ├── test_builder.py
+│           │   ├── test_deduplicator.py
+│           │   ├── test_models.py
+│           │   ├── test_repository.py
+│           │   ├── test_routes.py
+│           │   ├── test_service.py
+│           │   ├── test_splitter.py
+│           │   └── test_validator.py
+│           ├── emails
+│           │   ├── __init__.py
+│           │   ├── test_collection_repository.py
+│           │   ├── test_collector.py
+│           │   ├── test_imap_collector.py
+│           │   ├── test_routes.py
+│           │   └── test_service.py
+│           ├── experiments
+│           │   └── test_validators.py
+│           ├── features
+│           │   ├── __init__.py
+│           │   ├── test_content.py
+│           │   ├── test_definitions.py
+│           │   ├── test_extractor.py
+│           │   ├── test_repository.py
+│           │   ├── test_routes.py
+│           │   ├── test_sender.py
+│           │   ├── test_service.py
+│           │   ├── test_similarity.py
+│           │   └── test_temporal.py
+│           ├── __init__.py
+│           ├── ml_models
+│           ├── parsing
+│           │   ├── __init__.py
+│           │   ├── test_routes.py
+│           │   └── test_service.py
+│           ├── settings
+│           │   └── test_settings.py
+│           ├── threat_intelligence
+│           │   └── test_threat_intelligence.py
+│           └── users
+│               ├── __init__.py
+│               ├── test_create_user.py
+│               ├── test_role_management.py
+│               ├── test_user_details.py
+│               ├── test_user_list.py
+│               └── test_user_status.py
+├── backups
+│   ├── email_bomb_detection_before_cleanup_20260930_105452.db
+│   └── email_bomb_detection_before_dataset_schema_20260926_122612.db
+├── data
+│   ├── email_bomb_detection.db
+│   ├── models
+│   │   ├── 469b2330-78be-46d6-9a68-fb0afe5e1df7
+│   │   │   └── version_1
+│   │   │       └── model_469b2330-78be-46d6-9a68-fb0afe5e1df7_v1.joblib
+│   │   ├── 53b9ec2b-1f38-43dc-af0a-f45ee3ec4297
+│   │   │   ├── version_1
+│   │   │   │   └── model_53b9ec2b-1f38-43dc-af0a-f45ee3ec4297_v1.joblib
+│   │   │   ├── version_2
+│   │   │   │   └── model_53b9ec2b-1f38-43dc-af0a-f45ee3ec4297_v2.joblib
+│   │   │   ├── version_3
+│   │   │   │   └── model_53b9ec2b-1f38-43dc-af0a-f45ee3ec4297_v3.joblib
+│   │   │   ├── version_4
+│   │   │   │   └── model_53b9ec2b-1f38-43dc-af0a-f45ee3ec4297_v4.joblib
+│   │   │   └── version_5
+│   │   │       └── model_53b9ec2b-1f38-43dc-af0a-f45ee3ec4297_v5.joblib
+│   │   └── b8c6eeee-c9d8-4002-a7f2-6a18320bc38b
+│   │       └── version_1
+│   │           └── model_b8c6eeee-c9d8-4002-a7f2-6a18320bc38b_v1.joblib
+│   ├── processed
+│   │   └── preprocessing
+│   │       ├── 27d7e22a-e693-4848-aaa5-264773c1b781
+│   │       │   ├── imputer.json
+│   │       │   ├── preprocessing_metadata.json
+│   │       │   ├── scaler.json
+│   │       │   ├── test_processed.csv
+│   │       │   ├── train_processed.csv
+│   │       │   └── validation_processed.csv
+│   │       ├── a39f0e38-72ee-48fa-88d9-fcdde668a663
+│   │       │   ├── imputer.json
+│   │       │   ├── preprocessing_metadata.json
+│   │       │   ├── scaler.json
+│   │       │   ├── test_processed.csv
+│   │       │   ├── train_processed.csv
+│   │       │   └── validation_processed.csv
+│   │       ├── b8a785b3-7077-4970-88aa-5bc880fd333f
+│   │       │   ├── imputer.json
+│   │       │   ├── preprocessing_metadata.json
+│   │       │   ├── scaler.json
+│   │       │   ├── test_processed.csv
+│   │       │   ├── train_processed.csv
+│   │       │   └── validation_processed.csv
+│   │       ├── c91c21c4-f225-459e-a662-682fcab29691
+│   │       │   ├── imputer.json
+│   │       │   ├── preprocessing_metadata.json
+│   │       │   ├── scaler.json
+│   │       │   ├── test_processed.csv
+│   │       │   ├── train_processed.csv
+│   │       │   └── validation_processed.csv
+│   │       └── f74ae889-6314-49be-8280-6c23d61c6440
+│   │           ├── imputer.json
+│   │           ├── preprocessing_metadata.json
+│   │           ├── scaler.json
+│   │           ├── test_processed.csv
+│   │           ├── train_processed.csv
+│   │           └── validation_processed.csv
+│   └── raw
+│       ├── bomb
+│       └── normal
+├── datasets-audit.zip
+├── docs
+│   └── dataset
+├── email_bomb_detection.db
+├── email_bomb_detection.db.backup
+├── email_bomb_detection.db.backup_before_module05
+├── email_bomb_detection.db.backup-before-parsing
+├── .env
+├── .env.example
+├── frontend
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── src
+│   │   ├── App.jsx
+│   │   ├── core
+│   │   │   ├── api
+│   │   │   │   └── client.js
+│   │   │   ├── auth
+│   │   │   │   ├── AuthProvider.jsx
+│   │   │   │   ├── authState.js
+│   │   │   │   ├── ProtectedRoute.jsx
+│   │   │   │   ├── Unauthorized.css
+│   │   │   │   └── Unauthorized.jsx
+│   │   │   ├── layout
+│   │   │   │   ├── AppLayout.css
+│   │   │   │   ├── AppLayout.jsx
+│   │   │   │   ├── Header.css
+│   │   │   │   ├── Header.jsx
+│   │   │   │   ├── Sidebar.css
+│   │   │   │   └── Sidebar.jsx
+│   │   │   ├── permissions
+│   │   │   │   ├── Can.js
+│   │   │   │   └── permissions.js
+│   │   │   ├── registry
+│   │   │   │   └── moduleRegistry.js
+│   │   │   └── router
+│   │   │       └── AppRouter.jsx
+│   │   ├── index.css
+│   │   ├── main.jsx
+│   │   ├── modules
+│   │   │   ├── analytics
+│   │   │   │   ├── components
+│   │   │   │   │   ├── AnalyticsFilters.jsx
+│   │   │   │   │   ├── AnalyticsPageHeader.jsx
+│   │   │   │   │   ├── AnalyticsSummaryCards.jsx
+│   │   │   │   │   ├── BehavioralAnalytics.jsx
+│   │   │   │   │   ├── ClassificationDistribution.jsx
+│   │   │   │   │   ├── ClassificationTrends.jsx
+│   │   │   │   │   ├── DetectionPerformance.jsx
+│   │   │   │   │   ├── RecentDetectionAnalytics.jsx
+│   │   │   │   │   └── RiskDistribution.jsx
+│   │   │   │   ├── hooks
+│   │   │   │   │   ├── useAnalyticsFilters.js
+│   │   │   │   │   └── useAnalytics.js
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   └── AnalyticsPage.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   ├── analyticsApi.js
+│   │   │   │   │   └── analyticsService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── analytics.css
+│   │   │   │   ├── types
+│   │   │   │   │   └── analytics.js
+│   │   │   │   └── types.js
+│   │   │   ├── audit-security-admin
+│   │   │   │   ├── components
+│   │   │   │   │   ├── administration
+│   │   │   │   │   │   ├── BackgroundJobTable.jsx
+│   │   │   │   │   │   ├── ConfigurationTable.jsx
+│   │   │   │   │   │   └── SystemHealthPanel.jsx
+│   │   │   │   │   ├── audit
+│   │   │   │   │   │   ├── AuditDetailsDrawer.jsx
+│   │   │   │   │   │   ├── AuditExportDialog.jsx
+│   │   │   │   │   │   └── AuditTable.jsx
+│   │   │   │   │   ├── common
+│   │   │   │   │   │   ├── AdminPageHeader.jsx
+│   │   │   │   │   │   ├── EmptyErrorState.jsx
+│   │   │   │   │   │   ├── Pagination.jsx
+│   │   │   │   │   │   ├── RightDrawer.jsx
+│   │   │   │   │   │   ├── StatusBadge.jsx
+│   │   │   │   │   │   └── SummaryCards.jsx
+│   │   │   │   │   └── security-monitoring
+│   │   │   │   │       ├── MonitoringRuleForm.jsx
+│   │   │   │   │       ├── MonitoringRuleTable.jsx
+│   │   │   │   │       ├── SecurityAlertTable.jsx
+│   │   │   │   │       └── SecurityEventTable.jsx
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── AuditLogsPage.jsx
+│   │   │   │   │   ├── SecurityMonitoringPage.jsx
+│   │   │   │   │   └── SystemAdministrationPage.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   ├── administrationService.js
+│   │   │   │   │   ├── api.js
+│   │   │   │   │   ├── auditService.js
+│   │   │   │   │   └── securityMonitoringService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── audit-security-admin.css
+│   │   │   │   ├── types.js
+│   │   │   │   └── types.test.js
+│   │   │   ├── auth
+│   │   │   │   ├── components
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── Login.css
+│   │   │   │   │   └── Login.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   └── authService.js
+│   │   │   │   └── types.js
+│   │   │   ├── dashboard
+│   │   │   │   ├── components
+│   │   │   │   │   ├── ClassificationChart.jsx
+│   │   │   │   │   ├── DashboardEmptyState.jsx
+│   │   │   │   │   ├── DashboardErrorState.jsx
+│   │   │   │   │   ├── DashboardFilters.jsx
+│   │   │   │   │   ├── DashboardHeader.jsx
+│   │   │   │   │   ├── DashboardLoading.jsx
+│   │   │   │   │   ├── DashboardQuickActions.jsx
+│   │   │   │   │   ├── DashboardSummaryCards.jsx
+│   │   │   │   │   ├── DetectionOverview.jsx
+│   │   │   │   │   ├── EmailActivityChart.jsx
+│   │   │   │   │   ├── ModelStatus.jsx
+│   │   │   │   │   ├── RecentActivity.jsx
+│   │   │   │   │   ├── RecentDetections.jsx
+│   │   │   │   │   ├── RiskDistributionChart.jsx
+│   │   │   │   │   ├── SystemHealth.jsx
+│   │   │   │   │   └── ThreatFeedStatus.jsx
+│   │   │   │   ├── hooks
+│   │   │   │   │   ├── useDashboardFilters.js
+│   │   │   │   │   ├── useDashboard.js
+│   │   │   │   │   └── useDashboardRefresh.js
+│   │   │   │   ├── index.js
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   └── DashboardPage.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   └── dashboardApi.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── dashboard.css
+│   │   │   │   ├── __tests__
+│   │   │   │   │   └── dashboardFormatters.test.js
+│   │   │   │   └── utils
+│   │   │   │       ├── dashboardConstants.js
+│   │   │   │       └── dashboardFormatters.js
+│   │   │   ├── datasets
+│   │   │   │   ├── components
+│   │   │   │   │   ├── DatasetCreateModal.jsx
+│   │   │   │   │   ├── DatasetDetailsDrawer.jsx
+│   │   │   │   │   ├── DatasetExportPanel.jsx
+│   │   │   │   │   ├── DatasetFilters.jsx
+│   │   │   │   │   ├── DatasetInfoDrawer.jsx
+│   │   │   │   │   ├── DatasetListTable.jsx
+│   │   │   │   │   ├── DatasetSelectionBar.jsx
+│   │   │   │   │   ├── DatasetSplitConfiguration.jsx
+│   │   │   │   │   ├── DatasetStats.jsx
+│   │   │   │   │   ├── DatasetTable.jsx
+│   │   │   │   │   ├── DatasetValidationIssues.jsx
+│   │   │   │   │   ├── DatasetValidationSummary.jsx
+│   │   │   │   │   ├── DatasetVersionDrawer.jsx
+│   │   │   │   │   ├── DatasetVersionHistory.jsx
+│   │   │   │   │   ├── DatasetVersionModal.jsx
+│   │   │   │   │   └── DatasetVersionTable.jsx
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── DatasetExport.jsx
+│   │   │   │   │   ├── DatasetList.jsx
+│   │   │   │   │   ├── DatasetValidation.jsx
+│   │   │   │   │   ├── DatasetVersions.jsx
+│   │   │   │   │   └── DatasetWorkspace.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   └── datasetService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── datasets.css
+│   │   │   │   └── types.js
+│   │   │   ├── detection
+│   │   │   │   ├── components
+│   │   │   │   │   ├── DetectionActivityChart.jsx
+│   │   │   │   │   ├── DetectionDetailsDrawer.jsx
+│   │   │   │   │   ├── DetectionPageShell.jsx
+│   │   │   │   │   ├── DetectionResultsTable.jsx
+│   │   │   │   │   ├── DetectionStatCard.jsx
+│   │   │   │   │   ├── NewDetectionForm.jsx
+│   │   │   │   │   └── RiskDistributionChart.jsx
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── BehavioralAnalysisPage.jsx
+│   │   │   │   │   ├── DetectionHistoryPage.jsx
+│   │   │   │   │   ├── DetectionOverviewPage.jsx
+│   │   │   │   │   ├── DetectionSettingsPage.jsx
+│   │   │   │   │   ├── NewDetectionPage.jsx
+│   │   │   │   │   └── RiskAnalysisPage.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   ├── behavioralService.js
+│   │   │   │   │   ├── detectionService.js
+│   │   │   │   │   ├── detectionSettingsService.js
+│   │   │   │   │   └── riskService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── detection.css
+│   │   │   │   └── types.js
+│   │   │   ├── emails
+│   │   │   │   ├── components
+│   │   │   │   │   ├── EmailDrawer.jsx
+│   │   │   │   │   ├── EmailIngestForm.jsx
+│   │   │   │   │   ├── EmailStats.jsx
+│   │   │   │   │   ├── EmailTable.jsx
+│   │   │   │   │   └── EmailUploadForm.jsx
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   └── EmailOverview.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   └── emailService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── emails.css
+│   │   │   │   └── types.js
+│   │   │   ├── experiments
+│   │   │   │   ├── components
+│   │   │   │   │   ├── ExperimentComparison.jsx
+│   │   │   │   │   ├── ExperimentDetails.jsx
+│   │   │   │   │   ├── ExperimentFilters.jsx
+│   │   │   │   │   ├── ExperimentForm.jsx
+│   │   │   │   │   ├── ExperimentLogs.jsx
+│   │   │   │   │   ├── ExperimentPageHeader.jsx
+│   │   │   │   │   ├── ExperimentPagination.jsx
+│   │   │   │   │   ├── ExperimentRunDetails.jsx
+│   │   │   │   │   ├── ExperimentRunList.jsx
+│   │   │   │   │   ├── ExperimentStatusBadge.jsx
+│   │   │   │   │   ├── ExperimentSummaryCards.jsx
+│   │   │   │   │   └── ExperimentTable.jsx
+│   │   │   │   ├── hooks
+│   │   │   │   │   ├── useExperimentComparison.js
+│   │   │   │   │   ├── useExperimentDetails.js
+│   │   │   │   │   ├── useExperimentRuns.js
+│   │   │   │   │   └── useExperiments.js
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── CreateExperimentPage.jsx
+│   │   │   │   │   ├── ExperimentDetailsPage.jsx
+│   │   │   │   │   ├── ExperimentRunDetailsPage.jsx
+│   │   │   │   │   └── ExperimentsPage.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   ├── experimentsApi.js
+│   │   │   │   │   └── experimentsService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── experiments.css
+│   │   │   │   ├── types
+│   │   │   │   │   └── experiments.js
+│   │   │   │   └── types.js
+│   │   │   ├── features
+│   │   │   │   ├── components
+│   │   │   │   │   ├── FeatureDefinitionTable.jsx
+│   │   │   │   │   ├── FeatureDetailsDrawer.jsx
+│   │   │   │   │   ├── FeatureExtractionQueue.jsx
+│   │   │   │   │   ├── FeatureReadiness.jsx
+│   │   │   │   │   ├── FeatureStats.jsx
+│   │   │   │   │   ├── FeatureTable.jsx
+│   │   │   │   │   ├── FeatureValue.jsx
+│   │   │   │   │   └── FeatureVector.jsx
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── FeatureDefinitions.jsx
+│   │   │   │   │   ├── FeatureDetails.jsx
+│   │   │   │   │   └── FeatureWorkspace.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   └── featureService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── features.css
+│   │   │   │   └── types.js
+│   │   │   ├── investigation-reporting
+│   │   │   │   ├── components
+│   │   │   │   │   ├── common
+│   │   │   │   │   │   ├── ActionMenu.jsx
+│   │   │   │   │   │   ├── ConfirmDialog.jsx
+│   │   │   │   │   │   ├── DetailsDrawer.jsx
+│   │   │   │   │   │   ├── EmptyState.jsx
+│   │   │   │   │   │   ├── ErrorState.jsx
+│   │   │   │   │   │   ├── FilterDrawer.jsx
+│   │   │   │   │   │   ├── InvestigationPageHeader.jsx
+│   │   │   │   │   │   ├── LoadingState.jsx
+│   │   │   │   │   │   ├── Pagination.jsx
+│   │   │   │   │   │   ├── RightDrawer.jsx
+│   │   │   │   │   │   ├── SearchFilterBar.jsx
+│   │   │   │   │   │   ├── StatusBadge.jsx
+│   │   │   │   │   │   └── SummaryCards.jsx
+│   │   │   │   │   ├── evidence
+│   │   │   │   │   │   ├── EvidenceAuditHistory.jsx
+│   │   │   │   │   │   ├── EvidenceDetailsDrawer.jsx
+│   │   │   │   │   │   ├── EvidenceForm.jsx
+│   │   │   │   │   │   ├── EvidenceProvenance.jsx
+│   │   │   │   │   │   ├── EvidenceRelationships.jsx
+│   │   │   │   │   │   ├── EvidenceReviewDrawer.jsx
+│   │   │   │   │   │   └── EvidenceTable.jsx
+│   │   │   │   │   ├── explainability
+│   │   │   │   │   │   ├── AnalystNoteForm.jsx
+│   │   │   │   │   │   ├── AnalystNoteList.jsx
+│   │   │   │   │   │   ├── BehavioralSignals.jsx
+│   │   │   │   │   │   ├── DetectionSummary.jsx
+│   │   │   │   │   │   ├── ExplanationDetailsDrawer.jsx
+│   │   │   │   │   │   ├── FeatureContributionChart.jsx
+│   │   │   │   │   │   ├── ModelInformation.jsx
+│   │   │   │   │   │   ├── RiskBreakdown.jsx
+│   │   │   │   │   │   └── TriggeredRuleList.jsx
+│   │   │   │   │   └── reports
+│   │   │   │   │       ├── ReportAuditHistory.jsx
+│   │   │   │   │       ├── ReportDetailsDrawer.jsx
+│   │   │   │   │       ├── ReportForm.jsx
+│   │   │   │   │       ├── ReportGenerationDialog.jsx
+│   │   │   │   │       ├── ReportPreview.jsx
+│   │   │   │   │       ├── ReportSectionsSelector.jsx
+│   │   │   │   │       ├── ReportTable.jsx
+│   │   │   │   │       └── ReportVersionList.jsx
+│   │   │   │   ├── hooks
+│   │   │   │   │   ├── useEvidence.js
+│   │   │   │   │   ├── useExplainability.js
+│   │   │   │   │   ├── useInvestigationQuery.js
+│   │   │   │   │   └── useReports.js
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── EvidencePage.jsx
+│   │   │   │   │   ├── ExplainabilityPage.jsx
+│   │   │   │   │   ├── ReportDetailsPage.jsx
+│   │   │   │   │   └── ReportsPage.jsx
+│   │   │   │   ├── permissions.js
+│   │   │   │   ├── services
+│   │   │   │   │   ├── api.js
+│   │   │   │   │   ├── evidenceService.js
+│   │   │   │   │   ├── explainabilityService.js
+│   │   │   │   │   └── reportService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── investigation-reporting.css
+│   │   │   │   └── types.js
+│   │   │   ├── ml-models
+│   │   │   │   ├── components
+│   │   │   │   │   ├── ClassificationReport.jsx
+│   │   │   │   │   ├── ConfusionMatrix.jsx
+│   │   │   │   │   ├── EvaluationMetrics.jsx
+│   │   │   │   │   ├── ModelDetails.jsx
+│   │   │   │   │   ├── ModelForm.jsx
+│   │   │   │   │   ├── ModelStatusBadge.jsx
+│   │   │   │   │   ├── ModelTable.jsx
+│   │   │   │   │   ├── ModelVersionDetails.jsx
+│   │   │   │   │   ├── ModelVersionTable.jsx
+│   │   │   │   │   ├── TrainingProgress.jsx
+│   │   │   │   │   ├── TrainingRunForm.jsx
+│   │   │   │   │   └── TrainingRunTable.jsx
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── ModelEvaluationPage.jsx
+│   │   │   │   │   ├── ModelRegistryPage.jsx
+│   │   │   │   │   ├── ModelsPage.jsx
+│   │   │   │   │   └── TrainingRunsPage.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   ├── api.js
+│   │   │   │   │   ├── evaluationService.js
+│   │   │   │   │   ├── modelRegistryService.js
+│   │   │   │   │   ├── modelService.js
+│   │   │   │   │   └── trainingRunService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── ml-models.css
+│   │   │   │   └── types.js
+│   │   │   ├── parsing
+│   │   │   │   ├── components
+│   │   │   │   │   ├── AddressAnalysis.jsx
+│   │   │   │   │   ├── AttachmentList.jsx
+│   │   │   │   │   ├── ContentInspector.jsx
+│   │   │   │   │   ├── EmailIdentity.jsx
+│   │   │   │   │   ├── HeaderAnalysis.jsx
+│   │   │   │   │   ├── MimeStructure.jsx
+│   │   │   │   │   ├── ParsedEmailDrawer.jsx
+│   │   │   │   │   ├── ParsingEmailTable.jsx
+│   │   │   │   │   ├── ParsingQueue.jsx
+│   │   │   │   │   ├── ParsingStats.jsx
+│   │   │   │   │   ├── PipelineStatus.jsx
+│   │   │   │   │   └── ValidationResult.jsx
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── ParsedEmail.jsx
+│   │   │   │   │   └── ParsingWorkspace.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   └── parsingService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── parsing.css
+│   │   │   │   └── types.js
+│   │   │   ├── preprocessing
+│   │   │   │   ├── components
+│   │   │   │   │   ├── DatasetSelector.jsx
+│   │   │   │   │   ├── ExecutionResults.jsx
+│   │   │   │   │   ├── PipelineExecution.jsx
+│   │   │   │   │   ├── PreprocessingConfiguration.jsx
+│   │   │   │   │   ├── PreprocessingHistory.jsx
+│   │   │   │   │   ├── PreprocessingOverview.jsx
+│   │   │   │   │   └── SplitInformation.jsx
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── PreprocessingHistory.jsx
+│   │   │   │   │   └── PreprocessingWorkspace.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   └── preprocessingService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── preprocessing.css
+│   │   │   │   └── types.js
+│   │   │   ├── settings
+│   │   │   │   ├── components
+│   │   │   │   │   ├── SettingsErrorState.jsx
+│   │   │   │   │   ├── SettingsHeader.jsx
+│   │   │   │   │   ├── SettingsSaveBar.jsx
+│   │   │   │   │   ├── SettingsSection.jsx
+│   │   │   │   │   └── SettingsSidebar.jsx
+│   │   │   │   ├── hooks
+│   │   │   │   │   ├── useSettings.js
+│   │   │   │   │   └── useSettingsMutation.js
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   └── SettingsPage.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   └── settingsApi.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── settings.css
+│   │   │   │   ├── __tests__
+│   │   │   │   └── utils
+│   │   │   │       └── settingsConstants.js
+│   │   │   ├── threat_intelligence
+│   │   │   │   ├── components
+│   │   │   │   │   ├── FeedForm.jsx
+│   │   │   │   │   ├── FeedList.jsx
+│   │   │   │   │   ├── FeedSyncHistory.jsx
+│   │   │   │   │   ├── FeedSyncStatus.jsx
+│   │   │   │   │   ├── IndicatorDetails.jsx
+│   │   │   │   │   ├── IndicatorForm.jsx
+│   │   │   │   │   ├── IndicatorTable.jsx
+│   │   │   │   │   ├── ThreatActivityTrends.jsx
+│   │   │   │   │   ├── ThreatDrawerContent.jsx
+│   │   │   │   │   ├── ThreatDrawer.jsx
+│   │   │   │   │   ├── ThreatFilters.jsx
+│   │   │   │   │   ├── ThreatMatchDetails.jsx
+│   │   │   │   │   ├── ThreatMatchTable.jsx
+│   │   │   │   │   ├── ThreatPageHeader.jsx
+│   │   │   │   │   ├── ThreatRelatedRecord.jsx
+│   │   │   │   │   ├── ThreatSeverityDistribution.jsx
+│   │   │   │   │   ├── ThreatSummaryCards.jsx
+│   │   │   │   │   └── ThreatTypeDistribution.jsx
+│   │   │   │   ├── hooks
+│   │   │   │   │   ├── useFeedDetails.js
+│   │   │   │   │   ├── useIndicatorDetails.js
+│   │   │   │   │   ├── useIndicators.js
+│   │   │   │   │   ├── useThreatFeeds.js
+│   │   │   │   │   ├── useThreatFilters.js
+│   │   │   │   │   ├── useThreatMatches.js
+│   │   │   │   │   └── useThreatOverview.js
+│   │   │   │   ├── module.js
+│   │   │   │   ├── pages
+│   │   │   │   │   ├── IndicatorsPage.jsx
+│   │   │   │   │   ├── ThreatFeedsPage.jsx
+│   │   │   │   │   ├── ThreatMatchesPage.jsx
+│   │   │   │   │   └── ThreatOverviewPage.jsx
+│   │   │   │   ├── services
+│   │   │   │   │   ├── threatIntelligenceApi.js
+│   │   │   │   │   └── threatIntelligenceService.js
+│   │   │   │   ├── styles
+│   │   │   │   │   └── threatIntelligence.css
+│   │   │   │   └── types
+│   │   │   │       └── threatIntelligence.js
+│   │   │   └── users
+│   │   │       ├── components
+│   │   │       │   ├── RoleSelector.jsx
+│   │   │       │   ├── UserForm.css
+│   │   │       │   ├── UserForm.jsx
+│   │   │       │   ├── UserStatusBadge.jsx
+│   │   │       │   └── UserTable.jsx
+│   │   │       ├── module.js
+│   │   │       ├── pages
+│   │   │       │   ├── CreateUser.jsx
+│   │   │       │   ├── UserDetails.css
+│   │   │       │   ├── UserDetails.jsx
+│   │   │       │   ├── UserList.css
+│   │   │       │   └── UserList.jsx
+│   │   │       ├── services
+│   │   │       │   └── userService.js
+│   │   │       └── types.js
+│   │   └── shared
+│   │       ├── components
+│   │       ├── feedback
+│   │       ├── forms
+│   │       ├── layouts
+│   │       ├── modals
+│   │       ├── tables
+│   │       └── utils
+│   └── vite.config.js
+├── .gitignore
+├── project_structure.txt
+├── requirements.txt
+├── scripts
+│   └── cleanup_non_auth_data.py
+├── src
+│   └── generators
+│       ├── bomb_generator.py
+│       └── normal_generator.py
+├── test_authentication.db
+└── test_user_management.db
+
+222 directories, 788 files

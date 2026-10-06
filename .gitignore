@@ -1,0 +1,105 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.cover
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+logs/
+
+# Generated ML artifacts
+models/trained/*
+models/preprocessing/*
+models/metadata/*
+
+# Generated datasets
+data/processed/*
+data/raw/*
+data/collection/*
+data/uploads/*
+reports/exports/*
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+*.db.backup*
+*.sqlite.backup
+*.backup
+
+# Local test email files
+test.eml
+normal_threat_match_test_bookphotoreserv.eml
+*.test.eml
+
+# Dataset archives
+*.zip
+
+# Local test databases
+test_*.db
+
+# Temporary
+tmp/
+temp/
+*.pid
+*.tmp
+
+
+# Local backup directory
+backups/
+
+# Local database inside data
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# Generated model directories
+data/models/*
+
+# Generated preprocessing artifacts
+data/processed/*
+
+# Frontend production build
+frontend/dist/
+
+# Dataset archive
+datasets-audit.zip
