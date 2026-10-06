@@ -1,0 +1,53 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+}
+
+/* -------------------------------------------------------
+   Main Application Body
+------------------------------------------------------- */
+
+.app-layout-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+/* -------------------------------------------------------
+   Main Content
+------------------------------------------------------- */
+
+.app-layout-content {
+  flex: 1;
+  min-width: 0;
+  min-height: calc(100vh - 64px);
+  padding: 24px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #f8fafc;
+}
+
+/* -------------------------------------------------------
+   Responsive
+------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .app-layout-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-layout-content {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-layout-content {
+    padding: 14px;
+  }
+}

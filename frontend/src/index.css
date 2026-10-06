@@ -1,0 +1,222 @@
+:root {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #111827;
+  background: #f8fafc;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Consistent KPI treatment across application modules. */
+:is(
+  .email-stat-card,
+  .parsing-stat-card,
+  .feature-stats__card,
+  .feature-definition-overview-card,
+  .dataset-stat-card,
+  .dataset-validation__summary-card,
+  .preprocessing-stat-card,
+  .preprocessing-summary-card,
+  .ml-stat-card,
+  .ml-summary-card,
+  .det-stat,
+  .summary-card
+) {
+  --kpi-accent: #3b82f6;
+  position: relative;
+  border-left: 3px solid var(--kpi-accent) !important;
+}
+
+:is(
+  .email-stat-card,
+  .parsing-stat-card,
+  .feature-stats__card,
+  .feature-definition-overview-card,
+  .dataset-stat-card,
+  .dataset-validation__summary-card,
+  .preprocessing-stat-card,
+  .preprocessing-summary-card,
+  .ml-stat-card,
+  .ml-summary-card,
+  .det-stat,
+  .summary-card
+):nth-child(4n + 1) {
+  --kpi-accent: #3b82f6;
+}
+
+:is(
+  .email-stat-card,
+  .parsing-stat-card,
+  .feature-stats__card,
+  .feature-definition-overview-card,
+  .dataset-stat-card,
+  .dataset-validation__summary-card,
+  .preprocessing-stat-card,
+  .preprocessing-summary-card,
+  .ml-stat-card,
+  .ml-summary-card,
+  .det-stat,
+  .summary-card
+):nth-child(4n + 2) {
+  --kpi-accent: #10b981;
+}
+
+:is(
+  .email-stat-card,
+  .parsing-stat-card,
+  .feature-stats__card,
+  .feature-definition-overview-card,
+  .dataset-stat-card,
+  .dataset-validation__summary-card,
+  .preprocessing-stat-card,
+  .preprocessing-summary-card,
+  .ml-stat-card,
+  .ml-summary-card,
+  .det-stat,
+  .summary-card
+):nth-child(4n + 3) {
+  --kpi-accent: #f59e0b;
+}
+
+:is(
+  .email-stat-card,
+  .parsing-stat-card,
+  .feature-stats__card,
+  .feature-definition-overview-card,
+  .dataset-stat-card,
+  .dataset-validation__summary-card,
+  .preprocessing-stat-card,
+  .preprocessing-summary-card,
+  .ml-stat-card,
+  .ml-summary-card,
+  .det-stat,
+  .summary-card
+):nth-child(4n) {
+  --kpi-accent: #8b5cf6;
+}
+
+/* Cards without an existing icon receive a small accent icon at right. */
+:is(
+  .parsing-stat-card,
+  .feature-stats__card,
+  .feature-definition-overview-card,
+  .dataset-validation__summary-card,
+  .ml-summary-card,
+  .summary-card
+) {
+  padding-right: 58px !important;
+}
+
+:is(
+  .parsing-stat-card,
+  .feature-stats__card,
+  .feature-definition-overview-card,
+  .dataset-validation__summary-card,
+  .ml-summary-card,
+  .summary-card
+)::after {
+  position: absolute;
+  top: 18px;
+  right: 17px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background-color: color-mix(in srgb, var(--kpi-accent) 12%, white);
+  content: "";
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19V5m0 14h17'/%3E%3Cpath d='m7 15 4-4 3 2 5-6'/%3E%3C/svg%3E") center / 17px 17px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19V5m0 14h17'/%3E%3Cpath d='m7 15 4-4 3 2 5-6'/%3E%3C/svg%3E") center / 17px 17px no-repeat;
+}
+
+/* Keep the module-provided icons on the right side of their KPI cards. */
+.email-stat-card-icon,
+.dataset-stat-card__icon {
+  color: var(--kpi-accent) !important;
+}
+
+.det-stat {
+  padding-right: 58px !important;
+}
+
+.det-stat-icon {
+  position: absolute;
+  top: 18px;
+  right: 17px;
+  left: auto;
+  color: var(--kpi-accent) !important;
+  background: color-mix(in srgb, var(--kpi-accent) 12%, white) !important;
+}
+
+.preprocessing-summary-icon {
+  order: 2;
+  margin-left: auto;
+  color: var(--kpi-accent) !important;
+  background: color-mix(in srgb, var(--kpi-accent) 12%, white) !important;
+}
+
+.preprocessing-stat-card {
+  padding-left: 16px;
+}
+
+.preprocessing-stat-card-top {
+  justify-content: flex-end;
+}
+
+.preprocessing-stat-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: var(--kpi-accent) !important;
+  background: color-mix(in srgb, var(--kpi-accent) 12%, white) !important;
+}
+/* Consistent, readable error feedback across all modules. */
+.app-error-notice{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1px solid #f0caca;border-radius:9px;background:linear-gradient(135deg,#fff8f7,#fff);color:#9d3438;box-shadow:0 2px 8px #8523290a}
+.app-error-notice>svg{flex:none;margin-top:1px;color:#c24b50}
+.app-error-notice__content{min-width:0;flex:1}
+.app-error-notice__content>strong{display:block;font-size:12px;font-weight:750}
+.app-error-notice__content>p{margin:4px 0 0;color:#75464a;font-size:11px;line-height:1.55;overflow-wrap:anywhere}
+.app-error-notice__content ul{margin:7px 0 0;padding-left:18px;color:#75464a;font-size:11px;line-height:1.6}
+.app-error-notice__content button{margin-top:9px;padding:6px 9px;border:1px solid #e9babb;border-radius:6px;background:#fff;color:#96383c;font-size:10px;font-weight:700;cursor:pointer}
