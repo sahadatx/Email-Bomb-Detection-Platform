@@ -23,8 +23,7 @@ if str(BACKEND_DIR) not in sys.path:
 # APPLICATION IMPORTS
 # ============================================================
 
-from app.core.config import settings
-from app.core.database import Base
+from app.core.database import Base, engine
 
 
 # ============================================================
@@ -75,8 +74,8 @@ target_metadata = Base.metadata
 # ============================================================
 
 def get_database_url() -> str:
-    """Return the database URL configured by the application."""
-    return settings.database_url
+    """Return the normalized database URL used by the application."""
+    return engine.url.render_as_string(hide_password=False)
 
 
 # ============================================================
