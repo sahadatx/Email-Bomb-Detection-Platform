@@ -1,0 +1,7 @@
+import { Eye, ClipboardCheck, Siren } from "lucide-react";
+import StatusBadge from "../common/StatusBadge";
+import { displayDate } from "../../types";
+
+export default function SecurityEventTable({ items = [], onView, onReview, onCreateAlert, canInvestigate }) {
+  return <div className="asa-table-scroll"><table className="asa-table"><thead><tr><th>Time</th><th>Event</th><th>Severity</th><th>Source · Actor · IP</th><th>Related Alert</th><th>Status</th><th>Action</th></tr></thead><tbody>{items.map((item) => <tr key={item.id}><td>{displayDate(item.occurred_at)}</td><td><strong>{item.title}</strong><small>{item.event_type}</small></td><td><StatusBadge status={item.severity}/></td><td>{item.source}<small>{item.actor_name || "System"} · {item.source_ip || "IP unavailable"}</small></td><td>{item.related_alert_id ? String(item.related_alert_id).slice(0, 12) : "—"}</td><td><StatusBadge status={item.status}/></td><td><div className="asa-inline-actions"><button className="asa-row-button asa-row-button--view" onClick={() => onView(item)}><Eye size={14}/> View</button>{canInvestigate && !item.related_alert_id && <button className="asa-row-button asa-row-button--create" onClick={() => onCreateAlert(item)}><Siren size={14}/> Create Alert</button>}{canInvestigate && <button className="asa-row-button asa-row-button--investigate" onClick={() => onReview(item)}><ClipboardCheck size={14}/> Investigate</button>}</div></td></tr>)}</tbody></table></div>;
+}
