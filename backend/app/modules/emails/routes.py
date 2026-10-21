@@ -110,6 +110,18 @@ def ingest_email(
     """
 
     try:
+        max_bytes = int(
+            get_effective_setting(service.repository.db, "email.max_upload_mb") or 20
+        ) * 1_000_000
+        if len(payload.raw_content.encode("utf-8")) > max_bytes:
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail=(
+                    "Raw email exceeds the configured "
+                    f"{max_bytes // 1_000_000} MB limit."
+                ),
+            )
+
         email = service.ingest(
             payload,
         )

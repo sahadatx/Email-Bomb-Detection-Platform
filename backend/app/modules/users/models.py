@@ -96,6 +96,11 @@ class User(UUIDTimestampMixin, Base):
         nullable=True,
     )
 
+    lockout_expires_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+    )
+
     sessions: Mapped[list["UserSession"]] = relationship(
         back_populates="user",
         cascade="all, delete-orphan",

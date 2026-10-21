@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from fastapi import Request
 
@@ -23,6 +23,7 @@ from app.modules.audit_security_admin.administration.settings_manager import get
 
 
 MAX_FAILED_LOGIN_ATTEMPTS = 5
+LOGIN_LOCKOUT_DURATION = timedelta(minutes=15)
 
 
 class AuthService:
@@ -53,21 +54,32 @@ class AuthService:
         if not user.is_active:
             raise AuthenticationError("Account is disabled.")
 
+        now = datetime.now(timezone.utc)
         if user.is_locked:
-            raise AuthenticationError("Account is locked.")
+            expires_at = user.lockout_expires_at
+            if expires_at is not None and expires_at.tzinfo is None:
+                expires_at = expires_at.replace(tzinfo=timezone.utc)
+            if expires_at is None or expires_at > now:
+                raise AuthenticationError("Account is locked.")
+
+            # Failed-login lockouts are temporary. Administrative locks have
+            # no expiry and therefore remain in force until explicitly lifted.
+            user.is_locked = False
+            user.failed_login_attempts = 0
+            user.locked_at = None
+            user.lockout_expires_at = None
 
         if not verify_password(password, user.password_hash):
-            self._record_failed_login(user)
+            self._record_failed_login(user, now=now)
 
             self.repository.commit()
 
             raise AuthenticationError("Invalid email or password.")
 
-        now = datetime.now(timezone.utc)
-
         user.failed_login_attempts = 0
         user.last_login_at = now
         user.locked_at = None
+        user.lockout_expires_at = None
 
         from app.core.config import settings as app_settings
         expires_minutes = get_effective_setting(self.repository.db, "security.session_timeout_minutes")
@@ -95,12 +107,16 @@ class AuthService:
             expires_at=access_token.expires_at,
         )
 
-    def _record_failed_login(self, user: User) -> None:
+    def _record_failed_login(
+        self, user: User, *, now: datetime | None = None
+    ) -> None:
         user.failed_login_attempts += 1
 
         if user.failed_login_attempts >= MAX_FAILED_LOGIN_ATTEMPTS:
+            now = now or datetime.now(timezone.utc)
             user.is_locked = True
-            user.locked_at = datetime.now(timezone.utc)
+            user.locked_at = now
+            user.lockout_expires_at = now + LOGIN_LOCKOUT_DURATION
 
     # ------------------------------------------------------------------
     # Logout

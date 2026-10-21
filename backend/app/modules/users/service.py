@@ -251,6 +251,8 @@ class UserService:
 
         user.is_locked = True
         user.locked_at = datetime.now(timezone.utc)
+        user.failed_login_attempts = 0
+        user.lockout_expires_at = None
 
         self.repository.commit()
         self.repository.refresh(user)
@@ -263,6 +265,7 @@ class UserService:
         user.is_locked = False
         user.locked_at = None
         user.failed_login_attempts = 0
+        user.lockout_expires_at = None
 
         self.repository.commit()
         self.repository.refresh(user)
@@ -310,6 +313,7 @@ class UserService:
         user.failed_login_attempts = 0
         user.is_locked = False
         user.locked_at = None
+        user.lockout_expires_at = None
 
         self.repository.commit()
         self.repository.refresh(user)
