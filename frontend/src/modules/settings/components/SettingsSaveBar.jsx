@@ -1,0 +1,5 @@
+import { RotateCcw, Save } from "lucide-react";
+
+export default function SettingsSaveBar({ dirty, editable, saving, reason, onReasonChange, onReset, onSave, savedAt }) {
+  return <footer className="settings-savebar"><div className="settings-savebar-copy"><strong>{dirty ? "Unsaved changes" : savedAt ? "Changes saved" : "All changes saved"}</strong><small>{dirty ? "A change reason is required for the audit history." : "Settings are stored by their owning platform module."}</small></div>{editable && <><label className="settings-reason"><span>Change reason</span><input value={reason} maxLength={1000} onChange={(event) => onReasonChange(event.target.value)} placeholder="Explain why this change is needed" disabled={saving} /></label><button type="button" className="settings-secondary-button" onClick={onReset} disabled={!dirty || saving}><RotateCcw size={15} /> Reset</button><button type="button" className="settings-primary-button" onClick={onSave} disabled={!dirty || saving} aria-label={saving ? "Saving settings" : "Save changes"}><Save size={15} />{saving ? "Saving…" : "Save changes"}</button></>}</footer>;
+}
