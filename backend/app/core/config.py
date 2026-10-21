@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -62,6 +62,22 @@ class Settings(BaseSettings):
         default="INFO",
         alias="LOG_LEVEL",
     )
+
+    @model_validator(mode="after")
+    def validate_production_security(self) -> "Settings":
+        """Reject development-only security settings outside dev/test."""
+        environment = self.app_env.strip().lower()
+        if environment not in {"development", "dev", "test", "testing"}:
+            if self.debug:
+                raise ValueError("DEBUG must be false outside development and test environments.")
+            if (
+                self.jwt_secret_key == "CHANGE_THIS_IN_PRODUCTION"
+                or len(self.jwt_secret_key.encode("utf-8")) < 32
+            ):
+                raise ValueError(
+                    "JWT_SECRET_KEY must be a unique secret of at least 32 bytes outside development and test environments."
+                )
+        return self
 
     model_config = SettingsConfigDict(
         env_file=".env",
