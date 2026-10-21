@@ -1,0 +1,6 @@
+import { formatCount } from "../types";
+
+export default function ClassificationTrends({ items = [] }) {
+  const max = Math.max(1, ...items.map((item) => item.normal + item.bomb));
+  return <section className="an-panel an-chart-panel"><header className="an-panel-heading"><div><h2>Email Classification Trends</h2><p>Completed detection volume over time</p></div><div className="an-legend"><span><i className="an-dot an-dot--normal"/>Normal</span><span><i className="an-dot an-dot--bomb"/>Bomb</span></div></header>{items.length ? <div className="an-bars" role="img" aria-label="Normal and bomb detections over time">{items.map((item) => <div className="an-bar-column" key={item.timestamp} title={`${item.timestamp}: ${item.normal} normal, ${item.bomb} bomb`}><div className="an-stacked-bar" style={{ height: `${Math.max(3, (item.normal + item.bomb) / max * 100)}%` }}><i className="an-bar-normal" style={{ flex: item.normal || 0.001 }}/><i className="an-bar-bomb" style={{ flex: item.bomb || 0.001 }}/></div><small>{new Date(item.timestamp).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</small></div>)}</div> : <div className="an-empty">No completed detection activity in the selected range.</div>}</section>;
+}
