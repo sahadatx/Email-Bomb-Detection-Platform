@@ -1,0 +1,156 @@
+.user-form-page {
+  min-height: 100vh;
+  padding: 36px 28px;
+  background: #f8fafc;
+}
+
+.user-form-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.user-form-header {
+  margin-bottom: 24px;
+}
+
+.user-form-header h1 {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: 30px;
+}
+
+.user-form-header p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.user-form-card {
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.user-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-field-full {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #0f172a;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.07);
+}
+
+.form-field input[aria-invalid="true"],
+.form-field select[aria-invalid="true"] {
+  border-color: #dc2626;
+}
+
+.form-field input:disabled,
+.form-field select:disabled {
+  background: #f8fafc;
+  cursor: not-allowed;
+}
+
+.form-field small {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.field-error {
+  color: #dc2626;
+  font-size: 12px;
+}
+
+.user-form-error {
+  margin-bottom: 20px;
+  padding: 13px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.user-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 4px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.user-form-state {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #64748b;
+}
+
+@media (max-width: 640px) {
+  .user-form-page {
+    padding: 24px 16px;
+  }
+
+  .user-form-card {
+    padding: 20px;
+  }
+
+  .user-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field-full {
+    grid-column: auto;
+  }
+
+  .user-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .user-form-actions button {
+    width: 100%;
+  }
+}
