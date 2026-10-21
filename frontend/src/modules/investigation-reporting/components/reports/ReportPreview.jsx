@@ -1,0 +1,13 @@
+import StatusBadge from "../common/StatusBadge";
+const dt = (value) => value ? new Date(value).toLocaleString() : "—";
+export default function ReportPreview({ snapshot, report, loading = false, error }) {
+  if (loading) return <div className="ir-state">Building preview from saved detections and related records…</div>;
+  if (error) return <div className="ir-alert">{error}</div>;
+  if (!snapshot) return <div className="ir-state ir-state--compact">Select detections and choose Preview Report to review its current contents.</div>;
+  return <article className="ir-report-preview"><header><span>Investigation & Reporting</span><h2>{snapshot.title || report?.title}</h2><p>{snapshot.description || "Investigation report preview"}</p><div className="ir-chip-list"><span>{snapshot.report_type}</span><span>{snapshot.format?.toUpperCase()}</span><span>{snapshot.sections?.length || 0} sections</span><span>Generated {dt(snapshot.generated_at)}</span></div></header>
+    {snapshot.executive_summary && <section><h3>Executive Summary</h3><div className="ir-report-stats">{Object.entries(snapshot.executive_summary).map(([key, value]) => <div key={key}><span>{key.replaceAll("_", " ")}</span><strong>{value}</strong></div>)}</div></section>}
+    {snapshot.detection_summary && <section><h3>Detection Summary</h3><div className="ir-table-wrap"><table className="ir-table"><thead><tr><th>Detection</th><th>Prediction</th><th>Confidence</th><th>Risk</th><th>Model</th><th>Date</th></tr></thead><tbody>{snapshot.detections?.map((record) => <tr key={record.id}><td>{record.id}</td><td><StatusBadge status={record.predicted_label}/></td><td>{record.confidence == null ? "—" : `${(record.confidence * 100).toFixed(2)}%`}</td><td>{record.risk ? `${record.risk.score ?? "Unavailable"} / ${record.risk.level}` : "Not selected"}</td><td>{record.model_name || "—"} {record.version ? `· v${record.version}` : ""}</td><td>{dt(record.created_at)}</td></tr>)}</tbody></table></div></section>}
+    {snapshot.explainability && <section><h3>Explainability</h3>{snapshot.explainability.map(({ detection_id, explanation }) => <div className="ir-preview-record" key={detection_id}><strong>{detection_id}</strong><span>{explanation?.method || "Unavailable"} · {explanation?.status || "unavailable"}</span><p>{explanation?.limitations || "No further explanation details."}</p></div>)}</section>}
+    {["risk_analysis", "behavioral_analysis", "evidence", "analyst_notes", "technical_appendix"].filter((key) => snapshot[key] !== undefined).map((key) => <section key={key}><h3>{key.replaceAll("_", " ")}</h3><pre className="ir-pre">{JSON.stringify(snapshot[key], null, 2)}</pre></section>)}
+  </article>;
+}

@@ -1,0 +1,3 @@
+export default function ReportVersionList({ report }) {
+  return <section className="ir-detail-card"><h3>Snapshot & Version</h3><p className="ir-muted">The backend stores an immutable generated snapshot for this report. Draft revision: {report.version}. To revise generated content, duplicate this report and generate the draft copy.</p><dl className="ir-dl"><dt>Snapshot available</dt><dd>{report.snapshot ? "Yes" : "Not generated"}</dd><dt>Generated at</dt><dd>{report.generated_at ? new Date(report.generated_at).toLocaleString() : "—"}</dd><dt>Included detections</dt><dd>{report.detection_ids?.length || 0}</dd></dl></section>;
+}

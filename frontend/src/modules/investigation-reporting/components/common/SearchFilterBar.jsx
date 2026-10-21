@@ -1,0 +1,5 @@
+import { RotateCcw, Search } from "lucide-react";
+
+export default function SearchFilterBar({ search, onSearch, placeholder, onReset, onApply, actions, count, children, showApply = true, className = "" }) {
+  return <section className={`ir-filter-toolbar ${className}`.trim()}><div className="ir-toolbar"><label className="ir-search"><Search size={17}/><input value={search} onChange={(event) => onSearch(event.target.value)} placeholder={placeholder} aria-label="Search records"/></label>{actions}<span className="ir-result-count">{Number(count || 0).toLocaleString()} records</span></div>{children && <div className="ir-filter-options">{children}</div>}<div className="ir-filter-reset"><span>Filters apply to the results below.</span><div>{showApply && <button className="ir-button ir-button--primary" type="button" onClick={onApply}>Apply Filters</button>}<button className="ir-button ir-button--quiet" type="button" onClick={onReset}><RotateCcw size={15}/> Reset Filters</button></div></div></section>;
+}
