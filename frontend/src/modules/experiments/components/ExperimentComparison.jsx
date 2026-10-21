@@ -1,0 +1,7 @@
+import { X } from "lucide-react";
+import { formatPercent } from "../types";
+
+export default function ExperimentComparison({ items, loading, error, onClose }) {
+  const metrics = [["Precision", "precision"], ["Recall", "recall"], ["F1 Score", "f1_score"], ["Accuracy", "accuracy"]];
+  return <section className="ex-panel ex-comparison"><header className="ex-panel-heading"><div><h2>Experiment Comparison</h2><p>Results are taken from the linked completed evaluation runs.</p></div><button className="ex-icon-button" onClick={onClose} aria-label="Close comparison"><X size={17}/></button></header>{error ? <div className="ex-inline-error">{error}</div> : loading ? <div className="ex-empty">Loading comparison…</div> : items.length < 2 ? <div className="ex-empty">Select at least two completed experiments.</div> : <div className="ex-table-wrap"><table className="ex-table ex-compare-table"><thead><tr><th>Metric</th>{items.map((item) => <th key={item.experiment_id}>{item.model_name}<small>{item.name} · {item.dataset_name} v{item.dataset_version}</small></th>)}</tr></thead><tbody>{metrics.map(([label, key]) => <tr key={key}><th>{label}</th>{items.map((item) => <td key={item.experiment_id}>{formatPercent(item[key])}</td>)}</tr>)}<tr><th>Evaluation split</th>{items.map((item) => <td key={item.experiment_id}>{item.evaluation_split} · {Number(item.sample_count || 0).toLocaleString()} samples</td>)}</tr></tbody></table></div>}</section>;
+}

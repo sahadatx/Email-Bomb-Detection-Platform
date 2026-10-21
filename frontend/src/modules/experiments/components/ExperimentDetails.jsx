@@ -1,0 +1,3 @@
+export default function ExperimentDetails({ item }) {
+  return <section className="ex-panel"><div className="ex-panel-heading"><div><h2>Experiment Configuration</h2><p>Saved configuration snapshot used for linked training runs.</p></div></div><div className="ex-detail-columns"><div><h3>Feature Set · {item.feature_set?.length || 0}</h3><div className="ex-chips">{(item.feature_set || []).map((feature) => <span key={feature}>{feature}</span>)}</div></div><div><h3>Training Configuration</h3><pre className="ex-json">{JSON.stringify(item.training_config || {}, null, 2)}</pre></div></div></section>;
+}

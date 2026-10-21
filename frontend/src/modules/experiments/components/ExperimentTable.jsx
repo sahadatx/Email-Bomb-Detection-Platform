@@ -1,0 +1,10 @@
+import { formatDate, formatPercent } from "../types";
+import { Eye, Play, Trash2 } from "lucide-react";
+import ExperimentStatusBadge from "./ExperimentStatusBadge";
+
+export default function ExperimentTable({ items, selected, onSelect, onView, onRun, onDelete, canManage, busyId }) {
+  return <div className="ex-table-wrap"><table className="ex-table"><thead><tr><th>Select</th><th>Experiment</th><th>Model</th><th>Dataset</th><th>Split</th><th>Accuracy</th><th>Status / Progress</th><th>Created</th><th>Actions</th></tr></thead><tbody>{items.map((item) => {
+    const active = ["queued", "running"].includes(item.status);
+    return <tr key={item.id}><td><input type="checkbox" aria-label={`Select ${item.name} for comparison`} disabled={item.status !== "completed"} checked={selected.includes(item.id)} onChange={() => onSelect(item.id)}/></td><td><span className="ex-name-link">{item.name}</span><code className="ex-experiment-id" title={item.id}>{item.id}</code></td><td>{item.model_name || "—"}<small>{item.algorithm || "—"}</small></td><td>{item.dataset_name || "—"}<small>v{item.dataset_version_number ?? "—"} · {item.dataset_version_name || ""}</small></td><td>{item.evaluation_split || "validation"}</td><td>{formatPercent(item.accuracy ?? item.metrics?.accuracy)}</td><td><ExperimentStatusBadge status={item.status}/>{active && <div className="ex-progress"><i style={{ width: `${item.latest_run?.progress_percent || 2}%` }}/></div>}</td><td>{formatDate(item.created_at)}</td><td><div className="ex-row-actions"><button type="button" onClick={() => onView(item)}><Eye size={13}/>View</button>{canManage && <button type="button" disabled={active || busyId === item.id} onClick={() => onRun(item)}><Play size={13}/>{busyId === item.id ? "Starting…" : "Run"}</button>}{canManage && !active && <button type="button" aria-label={`Delete ${item.name}`} title="Delete experiment" disabled={busyId === item.id} onClick={() => onDelete(item)}><Trash2 size={13}/></button>}</div></td></tr>;
+  })}</tbody></table></div>;
+}

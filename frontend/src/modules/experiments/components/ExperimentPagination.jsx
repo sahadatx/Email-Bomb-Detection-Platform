@@ -1,0 +1,3 @@
+export default function ExperimentPagination({ page, pageSize, total, totalPages, loading, onPageChange }) {
+  return <footer className="ex-pagination"><span>Showing {total ? (page - 1) * pageSize + 1 : 0}–{Math.min(page * pageSize, total)} of {total}</span><div><button className="ex-button ex-button--secondary" disabled={page <= 1 || loading} onClick={() => onPageChange(page - 1)}>Previous</button><strong>{page} / {totalPages}</strong><button className="ex-button ex-button--secondary" disabled={page >= totalPages || loading} onClick={() => onPageChange(page + 1)}>Next</button></div></footer>;
+}
