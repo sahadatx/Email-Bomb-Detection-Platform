@@ -1,0 +1,5 @@
+export default function FeatureContributionChart({ explanation }) {
+  const items = explanation?.feature_contributions || [];
+  const supported = items.some((item) => Number.isFinite(Number(item.contribution)));
+  return <section className="ir-detail-card"><h3>Feature Contributions</h3>{!items.length ? <p className="ir-muted">No feature values were stored for this detection.</p> : <>{!supported && <p className="ir-muted">Only persisted feature values are available. Contribution scores were not calculated by this model.</p>}<div className="ir-contribution-list">{items.map((item) => { const score = Number(item.contribution); const width = supported ? Math.min(100, Math.abs(score) * 100) : 0; return <div className="ir-contribution" key={item.feature}><div><strong>{item.feature}</strong><span>Value: {item.value ?? "—"}</span><b>{Number.isFinite(score) ? score.toFixed(4) : "Contribution unavailable"}</b></div>{supported && <div className="ir-contribution__track"><i className={score < 0 ? "is-negative" : ""} style={{ width: `${width}%` }}/></div>}</div>; })}</div></>}</section>;
+}
